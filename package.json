@@ -1,6 +1,6 @@
 {
   "name": "@dryfeld/nunjucks-loader",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "A nunjucks loader for webpack.",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/at0g/nunjucks-loader.git"
+    "url": "git://github.com/jsutciffe/nunjucks-loader.git"
   },
   "keywords": [
     "webpack",
@@ -17,12 +17,12 @@
     "loader",
     "template"
   ],
-  "author": "Ben Daley <ben@fanboy.io>",
+  "author": "Ben Daley <ben@fanboy.io>, modifications by Jonathan Sutcliffe <jonathan.sutcliffe@gov.scot>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/at0g/nunjucks-loader/issues"
+    "url": "https://github.com/jsutcliffe/nunjucks-loader/issues"
   },
-  "homepage": "https://github.com/at0g/nunjucks-loader",
+  "homepage": "https://github.com/jsutcliffe/nunjucks-loader",
   "peerDependencies": {
     "nunjucks": ">= 2.5.0 <= 4.0.0"
   },
