@@ -1,14 +1,14 @@
 module.exports = function (nunjucks, env, obj, dependencies){
 
-    var oldRoot = obj.root;
+    const oldRoot = obj.root;
 
     obj.root = function( env, context, frame, runtime, ignoreMissing, cb ) {
-        var oldGetTemplate = env.getTemplate;
+        const oldGetTemplate = env.getTemplate;
         env.getTemplate = function (name, ec, parentName, ignoreMissing, cb) {
             if( typeof ec === "function" ) {
                 cb = ec = false;
             }
-            var _require = function (name) {
+            const _require = function (name) {
                 try {
                     // add a reference to the already resolved dependency here
                     return dependencies[name];
@@ -23,7 +23,7 @@ module.exports = function (nunjucks, env, obj, dependencies){
                 }
             };
 
-            var tmpl = _require(name);
+            const tmpl = _require(name);
             frame.set("_require", _require);
 
             if( ec ) tmpl.compile();
@@ -36,7 +36,7 @@ module.exports = function (nunjucks, env, obj, dependencies){
         });
     };
 
-    var src = {
+    const src = {
         obj: obj,
         type: 'code'
     };

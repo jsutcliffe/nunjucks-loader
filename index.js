@@ -7,15 +7,13 @@
  *
  ******************************************************************/
 
-var nunjucks = require('nunjucks');
-var slash = require('slash');
-var path = require('path');
-var loaderUtils = require('loader-utils');
-var env;
-var hasRun = false;
-var pathToConfigure;
-var jinjaCompatStr;
-var root;
+const nunjucks = require('nunjucks');
+const path = require('path');
+let hasRun = false;
+let env;
+let pathToConfigure;
+let jinjaCompatStr;
+let root;
 
 module.exports = function (source) {
     if (this.target !== 'web') {
@@ -24,9 +22,14 @@ module.exports = function (source) {
 
     this.cacheable();
 
-    if (!hasRun){
-        var query = loaderUtils.parseQuery(this.query);
-        var envOpts = query.opts || {};
+    let envOpts;
+
+    if (!hasRun) {
+        const query = new URLSearchParams(this.query);
+
+        console.log(111, query);
+
+        envOpts = query.opts || {};
         if (query){
 
             env = new nunjucks.Environment([], envOpts);
@@ -34,13 +37,13 @@ module.exports = function (source) {
             if (query.config){
                 pathToConfigure = query.config;
                 try {
-                    var configure = require(query.config);
+                    const configure = require(query.config);
                     configure(env);
                 }
                 catch (e) {
                     if (e.code === 'MODULE_NOT_FOUND') {
                         if (!query.quiet) {
-                            var message = 'Cannot configure nunjucks environment before precompile\n' +
+                            const message = 'Cannot configure nunjucks environment before precompile\n' +
                                     '\t' + e.message + '\n' +
                                     'Async filters and custom extensions are unsupported when the nunjucks\n' +
                                     'environment configuration depends on webpack loaders or custom module\n' +
@@ -73,9 +76,9 @@ module.exports = function (source) {
         hasRun = true;
     }
 
-    var name = slash(path.relative(root || this.rootContext || this.options.context, this.resourcePath));
+    const name = path.relative(root || this.rootContext || this.options.context, this.resourcePath);
 
-    var nunjucksCompiledStr = nunjucks.precompileString(source, {
+    let nunjucksCompiledStr = nunjucks.precompileString(source, {
             env: env,
             name: name
         });
@@ -85,13 +88,13 @@ module.exports = function (source) {
     // ==============================================================================
     // replace 'require' filter with a webpack require expression (to resolve assets)
     // ==============================================================================
-    var filterReg = /env\.getFilter\(\"require\"\)\.call\(context, \"(.*?)\"/g;
+    const filterReg = /env\.getFilter\(\"require\"\)\.call\(context, \"(.*?)\"/g;
     nunjucksCompiledStr = nunjucksCompiledStr.replace(filterReg, 'require("$1"');
 
     // ================================================================
     // Begin to write the compiled template output to return to webpack
     // ================================================================
-    var compiledTemplate = '';
+    let compiledTemplate = '';
     compiledTemplate += 'var nunjucks = require("nunjucks/browser/nunjucks-slim");\n';
     if (jinjaCompatStr) {
         compiledTemplate += jinjaCompatStr + '\n';
@@ -103,7 +106,7 @@ module.exports = function (source) {
     compiledTemplate += '\tenv = nunjucks.currentEnv;\n';
     compiledTemplate += '}\n';
     if (pathToConfigure) {
-        compiledTemplate += 'var configure = require("' + slash(path.relative(this.context, pathToConfigure)) + '")(env);\n';
+        compiledTemplate += 'var configure = require("' + path.relative(this.context, pathToConfigure) + '")(env);\n';
     }
 
 
@@ -117,16 +120,16 @@ module.exports = function (source) {
     // when this loader compiles multiple templates.
     compiledTemplate += 'var dependencies = nunjucks.webpackDependencies || (nunjucks.webpackDependencies = {});\n';
 
-    var templateReg = /env\.getTemplate\(\"(.*?)\"/g;
-    var match;
+    const templateReg = /env\.getTemplate\(\"(.*?)\"/g;
+    let match;
 
     // Create an object to store references to the dependencies that have been included - this ensures that a template
     // dependency is only written once per file, even if it is used multiple times.
-    var required = {};
+    const required = {};
 
     // Iterate over the template dependencies
     while (match = templateReg.exec(nunjucksCompiledStr)) {
-        var templateRef = match[1];
+        const templateRef = match[1];
         if (!required[templateRef]) {
             // Require the dependency by name, so it gets bundled by webpack
             compiledTemplate += 'dependencies["' + templateRef + '"] = require( "' + templateRef + '" );\n';
@@ -139,7 +142,7 @@ module.exports = function (source) {
     compiledTemplate += '\n\n\n\n';
 
     // Include a shim module (by reference rather than inline) that modifies the nunjucks runtime to work with the loader.
-    compiledTemplate += 'var shim = require("' + slash(path.resolve(this.context, __dirname + '/runtime-shim')) + '");\n';
+    compiledTemplate += 'var shim = require("' + path.resolve(this.context, __dirname + '/runtime-shim') + '");\n';
     compiledTemplate += '\n\n';
 
     // Write the compiled template string

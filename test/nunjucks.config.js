@@ -1,4 +1,4 @@
-var foo = require('foo');
+const foo = require('foo');
 
 module.exports = function(env) {
 
@@ -9,7 +9,7 @@ module.exports = function(env) {
     });
 
     env.addFilter('square', function(input, done) {
-        var result = input * input;
+        const result = input * input;
         setTimeout(function() {
             done(null, result);
         }, 10);

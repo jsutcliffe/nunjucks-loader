@@ -1,10 +1,10 @@
-var tplByRelativePath = require('../fixtures/templates/child.njk');
-var tplByResolvedPath = require('child.njk');
+const tplByRelativePath = import('../fixtures/templates/child.njk');
+const tplByResolvedPath = import('child.njk');
 
 describe('paths', function () {
     it('should resolve paths using webpack resolve', function () {
-        var result1 = tplByRelativePath.render();
-        var result2 = tplByResolvedPath.render();
+        const result1 = tplByRelativePath.render();
+        const result2 = tplByResolvedPath.render();
         tplByRelativePath.render.should.be.a.Function;
         tplByResolvedPath.render.should.be.a.Function;
         result1.should.equal(result2);

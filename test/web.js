@@ -1,11 +1,11 @@
-var g = typeof window !== 'undefined' ? window : global;
+const g = typeof window !== 'undefined' ? window : global;
 
-g.chai = require('chai');
+g.chai = import('chai');
 g.should = chai.should();
 
-require('./spec/paths');
-require('./spec/inheritance');
-require('./spec/environment');
-require('./spec/includes');
-require('./spec/require');
-require('./spec/nunjucks-loader');
+import('./spec/paths');
+import('./spec/inheritance');
+import('./spec/environment');
+import('./spec/includes');
+import('./spec/require');
+import('./spec/nunjucks-loader');

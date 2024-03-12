@@ -1,5 +1,5 @@
-var $ = require('jquery');
-var tpl = require('child.njk');
+const $ = require('jquery');
+const tpl = require('child.njk');
 
 $(function(){
     $('body')

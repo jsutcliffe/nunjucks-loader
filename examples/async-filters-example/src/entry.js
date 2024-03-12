@@ -1,12 +1,12 @@
-var $ = require('jquery');
-var formTpl = require('markdown-form.njk');
-var resultTpl = require('markdown-result.njk');
+const $ = require('jquery');
+const formTpl = require('markdown-form.njk');
+const resultTpl = require('markdown-result.njk');
 
 $(function(){
     $('body').html(  formTpl.render() );
 
-    var $input = $('#md-input');
-    var $result = $('#result');
+    const $input = $('#md-input');
+    const $result = $('#result');
 
     $('#markdown-form')
         .on('submit', function(evt){

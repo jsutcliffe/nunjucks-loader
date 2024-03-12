@@ -1,4 +1,4 @@
-var tpl = require('child.njk');
+const tpl = require('child.njk');
 
 describe('template inheritance', function () {
 
@@ -8,15 +8,15 @@ describe('template inheritance', function () {
     });
 
     it('should render a default argument', function () {
-        var result = tpl.render();
+        const result = tpl.render();
         result.should.be.a.String
         result.should.contain('hello world');
         result.should.contain('<div class="content">');
     });
 
     it('should render using the data context', function () {
-        var context = { name: 'everyone' };
-        var result = tpl.render(context);
+        const context = { name: 'everyone' };
+        const result = tpl.render(context);
         result.should.be.a.String
         result.should.contain('hello ' + context.name);
     });

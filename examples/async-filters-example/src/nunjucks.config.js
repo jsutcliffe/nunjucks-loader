@@ -1,4 +1,4 @@
-var marked = require('marked');
+const marked = require('marked');
 
 
 module.exports = function(env){

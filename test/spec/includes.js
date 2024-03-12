@@ -1,6 +1,6 @@
-var includeBasic = require('include-basic.njk');
-var includeWithinBlock = require('include-within-block.njk');
-var includeWithinMacro = require('include-within-macro.njk');
+const includeBasic = require('include-basic.njk');
+const includeWithinBlock = require('include-within-block.njk');
+const includeWithinMacro = require('include-within-macro.njk');
 
 describe('includes', function () {
 
@@ -10,13 +10,13 @@ describe('includes', function () {
     });
 
     it('should include a template from within a block body', function () {
-        var result = includeWithinBlock.render();
+        const result = includeWithinBlock.render();
         result.should.contain('Content to include');
         result.should.contain('<div class="content">');
     });
 
     it('should include a file within a macro', function () {
-        var result = includeWithinMacro.render();
+        const result = includeWithinMacro.render();
         result.should.contain('Included in macro');
         result.should.include('Hello');
     })

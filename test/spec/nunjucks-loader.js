@@ -1,7 +1,7 @@
-var nunjucks = require("nunjucks/browser/nunjucks-slim");
+const nunjucks = require("nunjucks/browser/nunjucks-slim");
 
-var templateOne = require('hero/default.njk');
-var templateTwo = require('villain/default.njk');
+const templateOne = require('hero/default.njk');
+const templateTwo = require('villain/default.njk');
 
 describe('nunjucks-loader', function () {
     describe('when requiring templates with the same base name', function() {
