@@ -27,8 +27,6 @@ module.exports = function (source) {
     if (!hasRun) {
         const query = new URLSearchParams(this.query);
 
-        console.log(111, query);
-
         envOpts = query.opts || {};
         if (query){
 
