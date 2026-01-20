@@ -1,6 +1,6 @@
 {
   "name": "@dryfeld/nunjucks-loader",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "A nunjucks loader for webpack.",
   "main": "index.js",
   "scripts": {
