@@ -7,7 +7,7 @@
  *
  ******************************************************************/
 
-const nunjucks = require('nunjucks');
+const nunjucks = require('./vendor/nunjucks.js');
 const path = require('path');
 let hasRun = false;
 let env;
@@ -92,8 +92,11 @@ module.exports = function (source) {
     // ================================================================
     // Begin to write the compiled template output to return to webpack
     // ================================================================
+
     let compiledTemplate = '';
-    compiledTemplate += 'var nunjucks = require("nunjucks/browser/nunjucks-slim");\n';
+    // compiledTemplate += 'var nunjucks = require("' + path.resolve(__dirname, 'vendor/nunjucks-slim.js') + '");';
+    // compiledTemplate += 'var nunjucks = require("' + path.resolve(__dirname, 'nunjucks-slim.js') + '");';
+    compiledTemplate += 'var nunjucks = require("@dryfeld/nunjucks-loader/nunjucks.slim.js");';
     if (jinjaCompatStr) {
         compiledTemplate += jinjaCompatStr + '\n';
     }
