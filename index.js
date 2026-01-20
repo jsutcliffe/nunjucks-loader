@@ -94,9 +94,7 @@ module.exports = function (source) {
     // ================================================================
 
     let compiledTemplate = '';
-    // compiledTemplate += 'var nunjucks = require("' + path.resolve(__dirname, 'vendor/nunjucks-slim.js') + '");';
-    // compiledTemplate += 'var nunjucks = require("' + path.resolve(__dirname, 'nunjucks-slim.js') + '");';
-    compiledTemplate += 'var nunjucks = require("@dryfeld/nunjucks-loader/nunjucks.slim.js");';
+    compiledTemplate += 'var nunjucks = require("@dryfeld/nunjucks-loader/vendor/nunjucks.slim.js");';
     if (jinjaCompatStr) {
         compiledTemplate += jinjaCompatStr + '\n';
     }
