@@ -32,10 +32,11 @@ module.exports = function (source) {
 
             env = new nunjucks.Environment([], envOpts);
 
-            if (query.config){
-                pathToConfigure = query.config;
+            if (query.has('config')) {
+
+                pathToConfigure = query.get('config');
                 try {
-                    const configure = require(query.config);
+                    const configure = require(pathToConfigure);
                     configure(env);
                 }
                 catch (e) {
